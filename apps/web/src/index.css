@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-light text-primary dark:bg-primary dark:text-light;
+  background-image: theme('backgroundImage.brand-gradient');
+  background-attachment: fixed;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.animate-spin-slow {
+  animation: spin 6s linear infinite;
+}
+
