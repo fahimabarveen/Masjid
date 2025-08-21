@@ -2,6 +2,38 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const juzList = Array.from({ length: 30 }, (_, i) => i + 1)
+const juzNames = [
+  'Juz 1 — ٱلٓمٓ',
+  'Juz 2 — سيقول',
+  'Juz 3 — تلك الرسل',
+  'Juz 4 — لن تنالوا',
+  'Juz 5 — والمحصنات',
+  'Juz 6 — لا يحب الله',
+  'Juz 7 — وإذا سمعوا',
+  'Juz 8 — ولو أننا',
+  'Juz 9 — قال الملأ',
+  'Juz 10 — واعلموا',
+  'Juz 11 — يعتذرون',
+  'Juz 12 — وما من دابة',
+  'Juz 13 — وما أبرئ',
+  'Juz 14 — ربما',
+  'Juz 15 — سبحان الذي',
+  'Juz 16 — قال ألم',
+  'Juz 17 — اقتربت',
+  'Juz 18 — قد أفلح',
+  'Juz 19 — وقال الذين',
+  'Juz 20 — أمن خلق',
+  'Juz 21 — اتل',
+  'Juz 22 — ومن يقنت',
+  'Juz 23 — وما لي',
+  'Juz 24 — فمن اعتدى',
+  'Juz 25 — إليه يرد',
+  'Juz 26 — حم',
+  'Juz 27 — قال فما خطبكم',
+  'Juz 28 — قد سمع الله',
+  'Juz 29 — تبارك الذي',
+  'Juz 30 — عم'
+]
 const surahNames = [
   'Al-Fatiha', 'Al-Baqarah', 'Aal-Imran', 'An-Nisa\'', 'Al-Ma\'idah', 'Al-An\'am',
   'Al-A\'raf', 'Al-Anfal', 'At-Tawbah', 'Yunus', 'Hud', 'Yusuf', 'Ar-Ra\'d', 'Ibrahim',
@@ -31,9 +63,11 @@ export function QuranIndexPage() {
       </div>
       <section>
         <h2 className="text-xl mb-2">Juz</h2>
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
           {juzList.map((j) => (
-            <div key={j} className="rounded bg-white/60 dark:bg-black/20 p-2 text-center hover:bg-white/80">Juz {j}</div>
+            <Link key={j} to={`/quran/juz/${j}`} className="rounded bg-white/60 dark:bg-black/20 p-3 hover:bg-white/80">
+              {j}. {juzNames[j - 1]}
+            </Link>
           ))}
         </div>
       </section>

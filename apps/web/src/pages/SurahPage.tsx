@@ -1,9 +1,12 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { fetchSurahText } from '../lib/quranApi'
 
 export function SurahPage() {
   const { id } = useParams()
   const surahId = Number(id)
+  const [name, setName] = React.useState('')
+  const [text, setText] = React.useState('')
   const [progress, setProgress] = React.useState<number>(() => {
     const key = `quran:surah:${surahId}:progress`
     const v = localStorage.getItem(key)
@@ -17,12 +20,24 @@ export function SurahPage() {
     alert('Progress saved (placeholder)')
   }
 
+  React.useEffect(() => {
+    let mounted = true
+    fetchSurahText(surahId).then((res) => {
+      if (!mounted) return
+      setName(res.name)
+      setText(res.text)
+    })
+    return () => {
+      mounted = false
+    }
+  }, [surahId])
+
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-semibold">Surah {surahId}</h1>
-      <div className="rounded bg-white/60 dark:bg-black/20 p-4">
+      <h1 className="text-2xl font-semibold">{name}</h1>
+      <div className="rounded bg-white/60 dark:bg-black/20 p-4 leading-9">
         <div className="font-calligraphy text-3xl">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</div>
-        <p className="mt-2 text-sm opacity-90">[Arabic + translation placeholder...]</p>
+        <p className="mt-2 font-calligraphy text-2xl whitespace-pre-wrap">{text}</p>
         <audio className="mt-3 w-full" controls>
           <source src="#" />
         </audio>

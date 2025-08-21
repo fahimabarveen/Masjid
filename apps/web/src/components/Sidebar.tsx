@@ -35,7 +35,7 @@ export const Sidebar = () => {
             }`
           }
         >
-          <item.icon size={20} /> {/* ✅ Icon will render properly */}
+          <item.icon size={20} />
           <span>{item.label}</span>
         </NavLink>
       ))}

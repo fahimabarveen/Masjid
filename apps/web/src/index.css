@@ -11,6 +11,10 @@ body {
   background-image: theme('backgroundImage.brand-gradient');
   background-attachment: fixed;
 }
+.heading-bright h1, .heading-bright h2, .heading-bright h3,
+.heading-bright .text-4xl, .heading-bright .text-3xl, .heading-bright .text-2xl {
+  @apply text-yellow-300;
+}
 
 html {
   scroll-behavior: smooth;

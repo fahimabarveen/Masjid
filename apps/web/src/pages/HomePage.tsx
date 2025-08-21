@@ -1,6 +1,10 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { QiblaCard } from '../components/QiblaCard'
+// Removed QiblaCard from Home per new requirements
+import { HadithOfTheDay } from '../components/HadithOfTheDay'
+import { NextPrayerAlert } from '../components/NextPrayerAlert'
+import { HijriDate } from '../components/HijriDate'
+import { Bell, Megaphone, Sunrise, Sun, SunMedium, Sunset, Moon, Clock } from 'lucide-react'
 
 
 const prayerTimes = {
@@ -32,14 +36,19 @@ export function HomePage() {
   }, [])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 heading-bright">
       <div className="flex items-center justify-between">
         <h1 className="font-calligraphy text-4xl text-white drop-shadow">﷽ Welcome</h1>
-        <div className="text-sm">Hijri/Gregorian: {dateLabel}</div>
+        <div className="flex items-center gap-3">
+          <HijriDate />
+          <div className="text-sm">{dateLabel}</div>
+        </div>
       </div>
 
+      <NextPrayerAlert />
+
       <section>
-        <h2 className="text-2xl mb-2">Daily Prayer Times</h2>
+        <h2 className="text-2xl mb-2 text-yellow-300">Daily Prayer Times</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {prayerTimes.times.map((p) => (
             <motion.div
@@ -48,7 +57,14 @@ export function HomePage() {
               className="rounded-lg bg-white/60 dark:bg-black/20 p-4 shadow hover:shadow-lg backdrop-blur-md transition"
             >
               <div className="flex items-center justify-between">
-                <div className="font-semibold">{p.name}</div>
+                <div className="font-semibold flex items-center gap-2">
+                  {p.name === 'Fajr' && <Sunrise size={18} />}
+                  {p.name === 'Dhuhr' && <Sun size={18} />}
+                  {p.name === 'Asr' && <SunMedium size={18} />}
+                  {p.name === 'Maghrib' && <Sunset size={18} />}
+                  {p.name === 'Isha' && <Moon size={18} />}
+                  <span>{p.name}</span>
+                </div>
                 <div className="text-secondary font-bold">{p.time}</div>
               </div>
               <div className="text-xs mt-1">Rakaat: {p.rakaat}</div>
@@ -66,24 +82,31 @@ export function HomePage() {
               </div>
             </motion.div>
           ))}
+          {/* Jummah */}
+          <motion.div whileHover={{ scale: 1.02 }} className="rounded-lg bg-white/60 dark:bg-black/20 p-4 shadow hover:shadow-lg backdrop-blur-md transition">
+            <div className="flex items-center justify-between">
+              <div className="font-semibold flex items-center gap-2"><Clock size={18} /><span>Jummah</span></div>
+              <div className="text-secondary font-bold">12:45</div>
+            </div>
+            <div className="text-xs mt-1">Khutbah + Salah</div>
+          </motion.div>
         </div>
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <HadithOfTheDay />
         <motion.div whileHover={{ scale: 1.02 }} className="rounded-lg bg-white/60 dark:bg-black/20 p-4 shadow">
-          <div className="font-semibold mb-2">Hadith of the Day</div>
-          <p className="text-sm">“Actions are judged by intentions...” — Bukhari</p>
-        </motion.div>
-        <motion.div whileHover={{ scale: 1.02 }} className="rounded-lg bg-white/60 dark:bg-black/20 p-4 shadow">
-          <div className="font-semibold mb-2">Announcements</div>
+          <div className="font-semibold mb-2 flex items-center gap-2"><Megaphone size={18} /> Announcements</div>
           <ul className="text-sm list-disc pl-5">
             <li>Barath Iravu: Friday 8PM</li>
             <li>Mehraj Iravu: Next Saturday</li>
             <li>Nikkah: Masjid Hall, 5PM</li>
           </ul>
         </motion.div>
-        <QiblaCard />
+        {/* Qibla removed from Home as requested */}
       </section>
+
+      {/* Duas section removed per new requirements */}
     </div>
   )
 }
