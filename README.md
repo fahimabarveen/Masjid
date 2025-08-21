@@ -71,6 +71,7 @@ Masjid-1/
 - Home
   - Prayer times grid
   - Next prayer alert
+  - Masjid Entry/Exit dua
   - Jummah card with integrated merits/demerits
   - Announcements with icons (includes Nikkah venue/time)
   - Hijri + Gregorian date display
