@@ -59,6 +59,34 @@ export function HomePage() {
 
       <NextPrayerAlert />
 
+      {/* Masjid Dua section */}
+      <section>
+        <h2 className="text-2xl mb-2">Masjid Dua:</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <motion.div
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.99 }}
+            className="rounded-xl p-4 shadow backdrop-blur-md bg-light/80 dark:bg-white/10 border border-secondary/20"
+          >
+            <div className="text-sm font-semibold mb-1">Entry Dua</div>
+            <div className="font-calligraphy text-2xl">اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ</div>
+            <div className="text-sm mt-2 opacity-90 italic">Allahumma iftah li abwaba rahmatik</div>
+            <div className="text-sm mt-1 opacity-90">O Allah, open for me the doors of Your mercy.</div>
+          </motion.div>
+
+          <motion.div
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.99 }}
+            className="rounded-xl p-4 shadow backdrop-blur-md bg-light/80 dark:bg-white/10 border border-secondary/20"
+          >
+            <div className="text-sm font-semibold mb-1">Exit Dua</div>
+            <div className="font-calligraphy text-2xl">اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ</div>
+            <div className="text-sm mt-2 opacity-90 italic">Allahumma inni as'aluka min fadlik</div>
+            <div className="text-sm mt-1 opacity-90">O Allah, I ask You of Your bounty.</div>
+          </motion.div>
+        </div>
+      </section>
+
       <section>
         <h2 className="text-2xl mb-2">Daily Prayer Times</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
