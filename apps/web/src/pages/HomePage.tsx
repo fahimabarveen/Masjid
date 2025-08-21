@@ -3,8 +3,7 @@ import { motion } from 'framer-motion'
 // Removed QiblaCard from Home per new requirements
 import { HadithOfTheDay } from '../components/HadithOfTheDay'
 import { NextPrayerAlert } from '../components/NextPrayerAlert'
-import { HijriDate } from '../components/HijriDate'
-import { Bell, Megaphone, Sunrise, Sun, SunMedium, Sunset, Moon, Clock } from 'lucide-react'
+import { Sunrise, Sun, SunMedium, Sunset, Moon, Clock, MapPin, CalendarClock, Globe } from 'lucide-react'
 
 
 const prayerTimes = {
@@ -18,37 +17,50 @@ const prayerTimes = {
   ],
 }
 
+function useWorldClock() {
+  const [country, setCountry] = React.useState<string>('Saudi Arabia — Asia/Riyadh')
+  const [now, setNow] = React.useState<Date>(new Date())
+  React.useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000)
+    return () => clearInterval(id)
+  }, [])
+  const zone = country.split(' — ')[1]
+  const time = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: zone as any }).format(now)
+  return { country, setCountry, time }
+}
+
 export function HomePage() {
   const [dateLabel, setDateLabel] = React.useState<string>('')
+  const { country, setCountry, time } = useWorldClock()
 
   React.useEffect(() => {
     const now = new Date()
-    const greg = new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(now)
+    const greg = new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: '2-digit' }).format(now)
     // Hijri calendar via Intl if supported
     let hijri = ''
     try {
       // @ts-ignore
-      hijri = new Intl.DateTimeFormat('en-GB-u-ca-islamic', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(now)
+      const hijriFmt = new Intl.DateTimeFormat('en-GB-u-ca-islamic', { year: 'numeric', month: 'long', day: '2-digit' })
+      hijri = hijriFmt.format(now)
     } catch {
       hijri = 'Hijri unsupported'
     }
-    setDateLabel(`${hijri} / ${greg}`)
+    setDateLabel(`${hijri}  |  ${greg}`)
   }, [])
 
   return (
     <div className="space-y-6 heading-bright">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-3">
         <h1 className="font-calligraphy text-4xl text-white drop-shadow">﷽ Welcome</h1>
-        <div className="flex items-center gap-3">
-          <HijriDate />
-          <div className="text-sm">{dateLabel}</div>
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-2 text-sm"><CalendarClock size={16}/> {dateLabel}</div>
         </div>
       </div>
 
       <NextPrayerAlert />
 
       <section>
-        <h2 className="text-2xl mb-2 text-yellow-300">Daily Prayer Times</h2>
+        <h2 className="text-2xl mb-2">Daily Prayer Times</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {prayerTimes.times.map((p) => (
             <motion.div
@@ -82,13 +94,27 @@ export function HomePage() {
               </div>
             </motion.div>
           ))}
-          {/* Jummah */}
+          {/* Jummah with merits/demerits inside */}
           <motion.div whileHover={{ scale: 1.02 }} className="rounded-lg bg-white/60 dark:bg-black/20 p-4 shadow hover:shadow-lg backdrop-blur-md transition">
             <div className="flex items-center justify-between">
               <div className="font-semibold flex items-center gap-2"><Clock size={18} /><span>Jummah</span></div>
               <div className="text-secondary font-bold">12:45</div>
             </div>
             <div className="text-xs mt-1">Khutbah + Salah</div>
+            <div className="mt-2 grid grid-cols-2 gap-2 text-xs">
+              <ul className="list-disc pl-5">
+                <li>Sins forgiven between two Fridays</li>
+                <li>Special hour of accepted duas</li>
+                <li>Reward for walking early to masjid</li>
+                <li>Angels record your presence</li>
+              </ul>
+              <ul className="list-disc pl-5 opacity-80">
+                <li>Loss of weekly blessings</li>
+                <li>Neglecting khutbah guidance</li>
+                <li>Missing communal unity</li>
+                <li>Reduced spiritual growth</li>
+              </ul>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -96,14 +122,27 @@ export function HomePage() {
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <HadithOfTheDay />
         <motion.div whileHover={{ scale: 1.02 }} className="rounded-lg bg-white/60 dark:bg-black/20 p-4 shadow">
-          <div className="font-semibold mb-2 flex items-center gap-2"><Megaphone size={18} /> Announcements</div>
-          <ul className="text-sm list-disc pl-5">
-            <li>Barath Iravu: Friday 8PM</li>
-            <li>Mehraj Iravu: Next Saturday</li>
-            <li>Nikkah: Masjid Hall, 5PM</li>
+          <div className="font-semibold mb-2 flex items-center gap-2"><CalendarClock size={18} /> Announcements</div>
+          <ul className="text-sm space-y-2">
+            <li className="flex items-start gap-2"><CalendarClock size={16}/> Barath Iravu: Friday 8PM</li>
+            <li className="flex items-start gap-2"><CalendarClock size={16}/> Mehraj Iravu: Next Saturday</li>
+            <li className="flex items-start gap-2"><MapPin size={16}/> Nikkah: Masjid Hall <span className="opacity-80">— 5:00 PM</span></li>
           </ul>
         </motion.div>
-        {/* Qibla removed from Home as requested */}
+        {/* World clock */}
+        <motion.div whileHover={{ scale: 1.02 }} className="rounded-lg bg-white/60 dark:bg-black/20 p-4 shadow">
+          <div className="font-semibold mb-2 flex items-center gap-2"><Globe size={18}/> World Clock</div>
+          <div className="flex items-center gap-2 text-2xl font-mono text-[#3E5F44]">{time}</div>
+          <select value={country} onChange={(e) => setCountry(e.target.value)} className="mt-3 w-full rounded bg-white/70 dark:bg-black/30 px-3 py-2 text-sm">
+            <option>Saudi Arabia — Asia/Riyadh</option>
+            <option>United Kingdom — Europe/London</option>
+            <option>United States (NY) — America/New_York</option>
+            <option>Malaysia — Asia/Kuala_Lumpur</option>
+            <option>Australia (Sydney) — Australia/Sydney</option>
+            <option>UAE — Asia/Dubai</option>
+            <option>India — Asia/Kolkata</option>
+          </select>
+        </motion.div>
       </section>
 
       {/* Duas section removed per new requirements */}

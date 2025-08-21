@@ -10,14 +10,14 @@ export function MenuPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
-        <label>Language:</label>
+        <label className="text-white">Language:</label>
         <LanguageSwitcher />
       </div>
 
       <QiblaCard />
 
       <section className="rounded-lg bg-white/60 dark:bg-black/20 p-4 shadow">
-        <div className="font-semibold mb-2">Our Events & Programs</div>
+        <div className="font-semibold mb-2 text-white">Our Events & Programs</div>
         <div className="aspect-[4/3] w-full">
           <iframe
             title="Masjid Calendar"
