@@ -7,10 +7,11 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently \"npm:dev:web\" \"npm:dev:mobile\"",
+    "dev": "concurrently \"npm:dev:web\" \"npm:dev:tv\" \"npm:dev:mobile\"",
     "dev:web": "npm --prefix apps/web run dev",
-    "dev:mobile": "npm --prefix apps/mobile run start",
-    "build": "npm --prefix apps/web run build",
+    "dev:tv": "npm --prefix apps/tv run dev",
+    "dev:mobile": "npm --prefix apps/mobile/web run dev",
+    "build": "npm --prefix apps/web run build && npm --prefix apps/tv run build && npm --prefix apps/mobile/web run build",
     "lint": "echo 'Add linters as needed'"
   },
   "devDependencies": {

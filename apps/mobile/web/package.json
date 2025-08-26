@@ -1,22 +1,22 @@
 {
-  "name": "masjidapp-web",
+  "name": "masjidapp-mobile-web",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview --open"
+    "dev": "vite --port 5177",
+    "build": "tsc && vite build",
+    "preview": "vite preview --port 5177"
   },
   "dependencies": {
-    "framer-motion": "^11.3.24",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "@masjid/shared": "*"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.41",
     "tailwindcss": "^3.4.10",
@@ -24,4 +24,3 @@
     "vite": "^5.4.1"
   }
 }
-

@@ -4,11 +4,10 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  server: { port: 5173 },
+  server: { port: 5177 },
   resolve: {
     alias: {
-      '@shared': path.resolve(__dirname, '../../packages/shared/src'),
+      '@shared': path.resolve(__dirname, '../../../packages/shared/src'),
     },
   },
 })
-

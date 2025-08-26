@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+	height: 100%;
+	margin: 0;
+}
+
+/* Custom scrollbar for web browsers */
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.3);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.5);
+}
+
+/* Custom scrollbar for dropdown */
+.custom-scrollbar::-webkit-scrollbar {
+	width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+	background: rgba(59, 30, 84, 0.1);
+	border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background: rgba(59, 30, 84, 0.3);
+	border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+	background: rgba(59, 30, 84, 0.5);
+}
+
+/* Focus styles for better accessibility */
+*:focus {
+	outline: 2px solid rgba(255, 255, 255, 0.5);
+	outline-offset: 2px;
+}
+
+/* Smooth transitions for all elements */
+* {
+	transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+
+/* Custom selection color - updated to match new purple theme */
+::selection {
+	background-color: rgba(59, 30, 84, 0.3);
+	color: white;
+}
+
+/* Glass morphism effect */
+.glass {
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive text sizing */
+@media (max-width: 640px) {
+	.text-responsive {
+		font-size: clamp(1rem, 4vw, 1.5rem);
+	}
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+	.text-responsive {
+		font-size: clamp(1.5rem, 3vw, 2rem);
+	}
+}
+
+@media (min-width: 1025px) {
+	.text-responsive {
+		font-size: clamp(2rem, 2.5vw, 3rem);
+	}
+}
+
+/* Android TV specific optimizations */
+@media (min-width: 1920px) {
+	/* Larger touch targets for TV navigation */
+	button, [role="button"] {
+		min-height: 60px;
+		min-width: 120px;
+	}
+	
+	/* Enhanced focus indicators for TV navigation */
+	*:focus {
+		outline: 3px solid rgba(255, 255, 255, 0.8);
+		outline-offset: 4px;
+		transform: scale(1.02);
+	}
+}
+
+/* Mobile specific optimizations */
+@media (max-width: 768px) {
+	/* Smaller touch targets for mobile */
+	button, [role="button"] {
+		min-height: 44px;
+		min-width: 80px;
+	}
+	
+	/* Enhanced touch feedback */
+	button:active, [role="button"]:active {
+		transform: scale(0.98);
+	}
+}
+
+/* Web specific optimizations */
+@media (min-width: 1024px) and (max-width: 1919px) {
+	/* Hover effects for web */
+	button:hover, [role="button"]:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+	}
+}
+
+
+
